@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+.tela-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(#1f2f3f, #609fad);
+}
+
+.login {
+    background-color: #FABE60;
+    width: 420px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    border-width: medium;
+    border-style: solid;
+    border-color: #000;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.nome-projeto h1 {
+    text-align: center;
+    font-size: 1.5rem;
+}
+.nome-projeto .nome-loja {
+    text-align: center;
+    font-size: 1rem;
+    padding-bottom: 30px;
+}
+
+.logar-usuario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-user {
+    display: flex;
+    margin-bottom: 25px;
+}
+
+.login-user p {
+    margin-right: 25px;
+    text-align: end;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.login-user input{
+    border-width: thin;
+    border-style: solid;
+    border-color: #000;
+}
+
+.botao-login {
+    display: flex;
+    height: 40px;
+    width: auto;
+    margin-left: 250px;
+
+}
+
+.botao-login input{
+    width: 120px;
+    background-color: #1F2F3F;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-style: italic;
+    border-width: thin;
+    border-style: solid;
+    border-color: #000;
+    cursor: pointer;
+}
