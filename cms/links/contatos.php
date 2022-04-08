@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css-links/contatos.css">
+    <link rel="stylesheet" href="css-links/contatos.css">
     <script src="https://kit.fontawesome.com/02a1c8bf88.js" crossorigin="anonymous"></script>
     <title>Contatos</title>
 </head>
@@ -68,7 +68,45 @@
     <main>
         <div id="consultaDeDados">
             <table id="tblConsulta" >
+                <tr>
+                    <td id="tblTitulo" colspan="6">
+                        <h1> Consulta de Mensagens.</h1>
+                    </td>
+                </tr>
                 
+                <tr id="tblLinhas">
+                    <td class="tblColunas destaque"> Nome </td>
+                    <td class="tblColunas destaque"> Celular </td>
+                    <td class="tblColunas destaque"> Email </td>
+                    <td class="tblColunas destaque"> Mensagem </td>
+                    <td class="tblColunas destaque"> Opções </td>
+                </tr>
+                
+                <?php
+                    require_once('./controller/controller-contatos.php');
+                    $listarMensagem = listarMensagem();
+                    foreach ($listarMensagem as $mensagem)
+                    {
+                ?>
+
+                    <tr id="tblLinhas">
+                        <td class="tblColunas registros"><?=$mensagem['nome']?></td>
+                        <td class="tblColunas registros"><?=$mensagem['celular']?></td>
+                        <td class="tblColunas registros"><?=$mensagem['email']?></td>
+                        <td class="tblColunas registros"><?=$mensagem['msg']?></td>
+                        <td class="tblColunas registros">
+                            
+                            <a onclick="return confirm('Deseja realmente excluir o contato <?=$mensagem['nome']?>?')" href="router.php?component=contatos&action=deletar&id=<?=$mensagem['id']?>">
+                                <img src="img/trash.png" alt="Excluir" title="Excluir" class="excluir" >     
+                            </a>
+                                                       
+                        </td>
+                    </tr>
+
+                <?php
+                    }
+                ?>
+
             </table>
         </div>
 
