@@ -46,6 +46,95 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
                         </script>"); 
                 
             } 
+
+        case 'CATEGORIAS';
+
+            //Importar o arquivo da controller
+            require_once('controller/controller-categorias.php');
+
+            //Validando qual sera a ação
+            if($action == 'INSERIR') {
+
+                //chama a função de inserir na controller
+                $resposta = inserirCategoria($_POST);
+
+                //Valida o tipo de dados que a controller retornou
+                if (is_bool($resposta)) /*Se for booleaan*/ {   
+
+                    //Verificar se o retorno foi verdadeiro
+                    if ($resposta) 
+                        echo("<script>
+                                alert('Categoria inserida com sucesso!!');
+                                window.location.href = 'categorias.php';
+                            </script>");
+                
+                }   //Se o retorno for um array significa houve erro no processo de inserção
+                    elseif (is_array($resposta))
+                        echo("<script>
+                                alert('".$resposta['message']."');
+                                window.history.back();
+                            </script>");
+
+            } elseif ($action == 'DELETAR') {
+
+                //Recebe o id da categoria que devera ser excluido
+                $idCategoria = $_GET['id'];
+
+                $resposta = excluirCategoria($idCategoria);
+
+                if(is_bool($resposta)) 
+                        echo("<script>
+                                alert('Categoria excluído com sucesso!!');
+                                window.location.href = 'categorias.php';
+                            </script>");
+                elseif (is_array($resposta))
+                        echo("<script>
+                                alert('".$resposta['message']."');
+                                window.history.back();
+                            </script>"); 
+            
+            } elseif ($action == 'BUSCAR') {
+
+                //Recebe o id da categoria que devera ser excluido
+                $idCategoria = $_GET['id'];
+                
+                //Busca a categoria pelo id
+                $dados = buscarCategoria($idCategoria);
+
+                //Ativa a utilização de variaveis de sessao no server
+                session_start();
+
+                //Guarda em uma variavel de sessao os dados que o BD retornou para a busca do ID
+                $_SESSION['dadosCategoria'] = $dados;
+                
+                // utilizando o require não havera um novo carregamento, apenas a importação da inde.php
+                require_once('categorias.php');
+
+            } elseif ($action == 'EDITAR') {
+                
+                //Recebe o id da categoria que devera ser excluido
+                $idCategoria = $_GET['id'];
+                
+                //Chama a funçao de editar
+                $resposta = atualizarCategoria($_POST, $idCategoria);
+
+                //Valida o tipo de dados que a controller retornou
+                if (is_bool($resposta)) /*Se for booleaan*/ {   
+
+                    //Verificar se o retorno foi verdadeiro
+                    if ($resposta) 
+                        echo("<script>
+                                alert('Categoria modificada com sucesso!!');
+                                window.location.href = 'categorias.php';
+                            </script>");
+                
+                }   //Se o retorno for um array significa houve erro no processo de inserção
+                    elseif (is_array($resposta))
+                        echo("<script>
+                                alert('".$resposta['message']."');
+                                window.history.back();
+                            </script>");
+            }
             
         break;
 
