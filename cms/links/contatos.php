@@ -85,6 +85,7 @@
                 <?php
                     require_once('./controller/controller-contatos.php');
                     $listarMensagem = listarMensagem();
+                    if($listarMensagem) {
                     foreach ($listarMensagem as $mensagem)
                     {
                 ?>
@@ -105,6 +106,7 @@
 
                 <?php
                     }
+                }
                 ?>
 
             </table>

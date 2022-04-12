@@ -61,10 +61,12 @@
                 </div>
 
                 <div class="secao-icon">
-                    <i class="fa-solid fa-users-line"></i>
-                    <p class="icon-title">
-                        Contatos
-                    </p>
+                    
+                        <i class="fa-solid fa-users-line"></i>
+                        <p class="icon-title">
+                            Contatos
+                        </p>
+                    
                 </div>
 
                 <div class="secao-icon">

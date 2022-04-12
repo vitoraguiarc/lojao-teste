@@ -39,12 +39,16 @@ function selectAllMessages() {
             $cont++;
         }
 
-        //Solicita o fechamento da conexão com o BD
-        fecharConexaoMysql($conexao);
-
-        //Retorno array de dados
-        return $arrayDados;
     }
+
+    //Solicita o fechamento da conexão com o BD
+    fecharConexaoMysql($conexao);
+
+    //Retorno array de dados
+    if(isset($arrayDados)) {
+        return $arrayDados;
+    } else
+        return false;
 
    
 }
