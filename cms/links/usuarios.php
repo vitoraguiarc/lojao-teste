@@ -1,35 +1,12 @@
-<?php
-
-    //variavel que tem como funcionalidade diferenciar o action do form
-    $form = (string) "router.php?component=categorias&action=inserir";
-
-    //Valida se a variavel de sessão esta ativa
-    if(session_status()) {
-
-        //Valida se a variavel não esta vazia
-        if(!empty($_SESSION['dadosCategoria'])) {
-
-            $id        = $_SESSION['dadosCategoria']['id'];
-            $categoria = $_SESSION['dadosCategoria']['categoria'];
-
-            //mudando o form
-            $form = "router.php?component=categorias&action=editar&id=".$id;
-
-            //detruindo a variavel de sessao do server
-            unset($_SESSION['dadosCategoria']);
-        }
-    }
-
-?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css-links/categorias.css">
+    <link rel="stylesheet" href="css-links/usuarios.css">
     <link rel="stylesheet" href="css-links/header-main-footer.css">
     <script src="https://kit.fontawesome.com/02a1c8bf88.js" crossorigin="anonymous"></script>
+    <script src="js/main.js" defer></script>
     <title>Contatos</title>
 </head>
 <body>
@@ -96,16 +73,45 @@
 
         <div id="cadastro"> 
             <div id="cadastroTitulo"> 
-                <h1> Cadastro de Categorias </h1>        
+                <h1> Cadastro de Usuarios </h1>        
             </div>
                 <div id="cadastroInformacoes">
-                    <form action="<?=$form?>" name="frmCadastro" method="post" >
+                    <form action="usuarios.php" name="frmCadastro" method="post" >
                         <div class="campos">
                             <div class="cadastroInformacoesPessoais">
-                                <label> Categoria: </label>
+                                <label> Nome: </label>
                             </div>
                             <div class="cadastroEntradaDeDados">
-                                <input type="text" name="txtCategoria" value="<?=isset($categoria)?$categoria:null?>" placeholder="Digite o nome de uma categoria" maxlength="90">
+                                <input type="text" name="txtNome" placeholder="Digite o email do usuario" maxlength="90">
+                            </div>
+                            <div class="cadastroInformacoesPessoais">
+                                <label> Nome de usuario: </label>
+                            </div>
+                            <div class="cadastroEntradaDeDados">
+                                <input type="text" name="txtUsuario" placeholder="Digite o nome de um usuario" maxlength="90">
+                            </div>
+                            <div class="cadastroInformacoesPessoais">
+                                <label> Email: </label>
+                            </div>
+                            <div class="cadastroEntradaDeDados">
+                                <input type="text" name="txtEmail" placeholder="Digite o email do usuario" maxlength="90">
+                            </div>
+                            <div class="cadastroInformacoesPessoais">
+                                <label> Senha: </label>
+                            </div>
+                            <div class="cadastroEntradaDeDados">
+                                <input type="password" name="txtSenha" id="senha" placeholder="Senha" 
+                                pattern="^(?=.*\d)(?=.*[az])(?=.*[AZ])(?!.*\s).{4,8}$" 
+                                title=" A senha deve ter pelo menos 4 caracteres, não mais que 15 caracteres 
+                                e deve incluir pelo menos uma letra maiúscula, uma letra minúscula e um dígito numérico." required>
+                                <i class="fa-solid fa-eye" id="vizualizar" pattern="^(?=.*\d)(?=.*[az])(?=.*[AZ]).{4,15}$" ></i>
+                            </div>
+                            <div class="cadastroEntradaDeDados">
+                                <input type="password" name="txtSenhaConfirma" id="confirma_senha" placeholder="Confirme a senha"
+                                pattern="^(?=.*\d)(?=.*[az])(?=.*[AZ])(?!.*\s).{4,8}$" 
+                                title=" A senha deve ter pelo menos 5 caracteres, não mais que 15 caracteres 
+                                e deve incluir pelo menos uma letra maiúscula, uma letra minúscula e um dígito numérico." required>
+                                <i class="fa-solid fa-eye" id="vizualizar-b" ></i>
                             </div>
                         </div>
                                         
@@ -128,43 +134,37 @@
                     </tr>
                     
                     <tr id="tblLinhas">
-                        <td class="tblColunas destaque"> Categorias </td>
+                        <td class="tblColunas destaque"> Nome </td>
+
+                        <td class="tblColunas destaque"> Nome de usuario </td>
+
+                        <td class="tblColunas destaque"> email </td>
                         
                         <td class="tblColunas destaque"> Opções </td>
                     </tr>
 
-                    <?php
-                        require_once('./controller/controller-categorias.php');
-                        $listCategorias = listarCategoria();
-                        if($listCategorias) {
-                            
-                        
-                        foreach ($listCategorias as $item)
-                        {
-                    ?>
+                    
 
 
                     <tr id="tblLinhas">
-                        <td class="tblColunas registros"><?=$item['categoria']?></td>
+                        <td class="tblColunas registros">gg</td>
+                        <td class="tblColunas registros">gg</td>
+                        <td class="tblColunas registros">gg</td>
                         <td class="tblColunas registros">
                         
-                            <a href="router.php?component=categorias&action=buscar&id=<?=$item['id']?>">
-                                <img src="img/edit.png" alt="Editar" title="Editar" class="editar">
-                            </a>
-
-                            <a onclick="return confirm('Deseja realmente excluir a categoria <?=$item['categoria']?>?')" href="router.php?component=categorias&action=deletar&id=<?=$item['id']?>">
+                            <!-- <a href="router.php?component=categorias&action=buscar&id=">
+                                
+                            </a> -->
+                            <img src="img/edit.png" alt="Editar" title="Editar" class="editar">
+                            <!-- <a onclick="return confirm('Deseja realmente excluir a categoria <?=$item['categoria']?>?')" href="router.php?component=categorias&action=deletar&id=<?=$item['id']?>"> -->
                                 <img src="img/trash.png" alt="Excluir" title="Excluir" class="excluir" >     
-                            </a>
+                            <!-- </a> -->
                                                         
                         </td>
 
                     </tr>
 
-                    <?php
-                        }
-                    }
-                    ?>
-
+    
 
                 </table>
             </div>

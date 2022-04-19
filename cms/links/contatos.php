@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css-links/contatos.css">
+    <link rel="stylesheet" href="css-links/header-main-footer.css">
     <script src="https://kit.fontawesome.com/02a1c8bf88.js" crossorigin="anonymous"></script>
     <title>Contatos</title>
 </head>
