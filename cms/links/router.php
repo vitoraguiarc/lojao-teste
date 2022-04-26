@@ -135,6 +135,54 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
                                 window.history.back();
                             </script>");
             }
+        
+        case 'USUARIOS';
+
+            //Importar o arquivo da controller
+            require_once('controller/controller-usuarios.php');
+
+            //Validando qual sera a ação
+            if($action == 'INSERIR') {
+
+                //chama a função de inserir na controller
+                $resposta = inserirUsuario($_POST);
+
+                //Valida o tipo de dados que a controller retornou
+                if (is_bool($resposta)) /*Se for booleaan*/ {   
+
+                    //Verificar se o retorno foi verdadeiro
+                    if ($resposta) 
+                        echo("<script>
+                                alert('Usuario inserido com sucesso!!');
+                                window.location.href = 'usuarios.php';
+                            </script>");
+                
+                }   //Se o retorno for um array significa houve erro no processo de inserção
+                    elseif (is_array($resposta))
+                        echo("<script>
+                                alert('".$resposta['message']."');
+                                window.history.back();
+                            </script>");
+
+            } elseif ($action == 'DELETAR') {
+
+                //Recebe o id do usuario que devera ser excluido
+                $idUsuario = $_GET['id'];
+
+                $resposta = excluirUsuario($idUsuario);
+
+                if(is_bool($resposta)) 
+                        echo("<script>
+                                alert('Usuario excluído com sucesso!!');
+                                window.location.href = 'usuarios.php';
+                            </script>");
+                elseif (is_array($resposta))
+                        echo("<script>
+                                alert('".$resposta['message']."');
+                                window.history.back();
+                            </script>"); 
+            
+            }
             
         break;
 

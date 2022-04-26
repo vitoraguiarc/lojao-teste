@@ -76,7 +76,7 @@
                 <h1> Cadastro de Usuarios </h1>        
             </div>
                 <div id="cadastroInformacoes">
-                    <form action="usuarios.php" name="frmCadastro" method="post" >
+                    <form action="router.php?component=usuarios&action=inserir" name="frmCadastro" method="post" >
                         <div class="campos">
                             <div class="cadastroInformacoesPessoais">
                                 <label> Nome: </label>
@@ -101,18 +101,12 @@
                             </div>
                             <div class="cadastroEntradaDeDados">
                                 <input type="password" name="txtSenha" id="senha" placeholder="Senha" 
-                                pattern="^(?=.*\d)(?=.*[az])(?=.*[AZ])(?!.*\s).{4,8}$" 
-                                title=" A senha deve ter pelo menos 4 caracteres, não mais que 15 caracteres 
-                                e deve incluir pelo menos uma letra maiúscula, uma letra minúscula e um dígito numérico." required>
+                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$" 
+                                title=" A senha devera ter o comprimento maior ou igual a 8 e menor ou igual a 16, pelo menos uma letra minúscula, uma letra maiuscula, 
+                                um dígito númerico e um caracter especial." required>
                                 <i class="fa-solid fa-eye" id="vizualizar" pattern="^(?=.*\d)(?=.*[az])(?=.*[AZ]).{4,15}$" ></i>
                             </div>
-                            <div class="cadastroEntradaDeDados">
-                                <input type="password" name="txtSenhaConfirma" id="confirma_senha" placeholder="Confirme a senha"
-                                pattern="^(?=.*\d)(?=.*[az])(?=.*[AZ])(?!.*\s).{4,8}$" 
-                                title=" A senha deve ter pelo menos 5 caracteres, não mais que 15 caracteres 
-                                e deve incluir pelo menos uma letra maiúscula, uma letra minúscula e um dígito numérico." required>
-                                <i class="fa-solid fa-eye" id="vizualizar-b" ></i>
-                            </div>
+    
                         </div>
                                         
                         
@@ -143,26 +137,42 @@
                         <td class="tblColunas destaque"> Opções </td>
                     </tr>
 
+                    <?php
+                        require_once('./controller/controller-usuarios.php');
+                        $listUsuarios = listarUsuario();
+                        if($listUsuarios) {
+                            
+                        
+                        foreach ($listUsuarios as $item)
+                        {
+                    ?>
+
                     
 
 
                     <tr id="tblLinhas">
-                        <td class="tblColunas registros">gg</td>
-                        <td class="tblColunas registros">gg</td>
-                        <td class="tblColunas registros">gg</td>
+                        <td class="tblColunas registros"><?=$item['nome']?></td>
+                        <td class="tblColunas registros"><?=$item['nomeusuario']?></td>
+                        <td class="tblColunas registros"><?=$item['email']?></td>
                         <td class="tblColunas registros">
                         
-                            <!-- <a href="router.php?component=categorias&action=buscar&id=">
-                                
-                            </a> -->
-                            <img src="img/edit.png" alt="Editar" title="Editar" class="editar">
-                            <!-- <a onclick="return confirm('Deseja realmente excluir a categoria <?=$item['categoria']?>?')" href="router.php?component=categorias&action=deletar&id=<?=$item['id']?>"> -->
+                            
+                            
+                                <img src="img/edit.png" alt="Editar" title="Editar" class="editar">    
+                            
+                            
+                            <a onclick="return confirm('Deseja realmente excluir o usuario <?=$item['nome']?>?')" href="router.php?component=usuarios&action=deletar&id=<?=$item['id']?>">
                                 <img src="img/trash.png" alt="Excluir" title="Excluir" class="excluir" >     
-                            <!-- </a> -->
+                            </a>
                                                         
                         </td>
 
                     </tr>
+
+                    <?php
+                        }
+                    }
+                    ?>
 
     
 
