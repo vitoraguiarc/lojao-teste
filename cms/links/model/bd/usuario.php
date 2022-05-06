@@ -24,7 +24,7 @@ function insertUsuario($dadosUsuario) {
                 (nome, nomeusuario, email, senha)
             values
                 ('".$dadosUsuario['nome']."',
-                 '".$dadosUsuario['nomeusuario']."',
+                 '".$dadosUsuario['usuario']."',
                  '".$dadosUsuario['email']."',
                  '".$dadosUsuario['senha']."'); ";
 
@@ -58,7 +58,7 @@ function updateUsuario($dadosUsuario) {
     //Monta o script para enviar os dados
     $sql = "update tblusuarios set
                  nome        = '".$dadosUsuario['nome']."',
-                 nomeusuario = '".$dadosUsuario['nomeusuario']."',
+                 nomeusuario = '".$dadosUsuario['usuario']."',
                  email       =  '".$dadosUsuario['email']."',
                  senha       = '".$dadosUsuario['senha']."'
                  

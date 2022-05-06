@@ -1,40 +1,11 @@
-<?php
-
-    //variavel que tem como funcionalidade diferenciar o action do form
-    $form = (string) "router.php?component=usuarios&action=inserir";
-
-    //Valida se a variavel de sessão esta ativa
-    if(session_status()) {
-
-        //Valida se a variavel não esta vazia
-        if(!empty($_SESSION['dadosUsuarios'])) {
-
-            $id        = $_SESSION['dadosUsuarios']['id'];
-            $nome = $_SESSION['dadosUsuarios']['nome'];
-            $usuario = $_SESSION['dadosUsuarios']['nomeusuario'];
-            $email = $_SESSION['dadosUsuarios']['email'];
-            $senha = $_SESSION['dadosUsuarios']['senha'];
-
-            //mudando o form
-            $form = "router.php?component=usuarios&action=editar&id=".$id;
-
-            //detruindo a variavel de sessao do server
-            unset($_SESSION['dadosUsuarios']);
-        }
-    }
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css-links/usuarios.css">
+    <link rel="stylesheet" href="css-links/categorias.css">
     <link rel="stylesheet" href="css-links/header-main-footer.css">
     <script src="https://kit.fontawesome.com/02a1c8bf88.js" crossorigin="anonymous"></script>
-    <script src="js/main.js" defer></script>
     <title>Contatos</title>
 </head>
 <body>
@@ -101,40 +72,63 @@
 
         <div id="cadastro"> 
             <div id="cadastroTitulo"> 
-                <h1> Cadastro de Usuarios </h1>        
+                <h1> Cadastro de Produtos </h1>        
             </div>
                 <div id="cadastroInformacoes">
-                    <form action="<?=$form?>" name="frmCadastro" method="post" >
+                    <form action="produtos.php" name="frmCadastro" method="post" >
                         <div class="campos">
                             <div class="cadastroInformacoesPessoais">
                                 <label> Nome: </label>
                             </div>
                             <div class="cadastroEntradaDeDados">
-                                <input type="text" name="txtNome" placeholder="Digite o email do usuario" maxlength="90" value="<?=isset($nome)?$nome:null?>">
+                                <input type="text" name="txtNome" placeholder="Digite o nome de uma categoria" maxlength="90">
                             </div>
+                        </div>
+
+
+                        <div class="campos">
                             <div class="cadastroInformacoesPessoais">
-                                <label> Nome de usuario: </label>
+                                <label> Descrição: </label>
                             </div>
                             <div class="cadastroEntradaDeDados">
-                                <input type="text" name="txtUsuario" placeholder="Digite o nome de um usuario" maxlength="90" value="<?=isset($usuario)?$usuario:null?>">
+                                <input type="text" name="txtDescricao" placeholder="Digite o nome de uma categoria" maxlength="90">
                             </div>
+                        </div>
+
+                        <div class="campos">
                             <div class="cadastroInformacoesPessoais">
-                                <label> Email: </label>
+                                <label> Preço: </label>
                             </div>
                             <div class="cadastroEntradaDeDados">
-                                <input type="text" name="txtEmail" placeholder="Digite o email do usuario" maxlength="90" value="<?=isset($email)?$email:null?>">
+                                <input type="is_float" name="txtPreco" placeholder="Digite o nome de uma categoria" maxlength="90">
                             </div>
+                        </div>
+
+                        <div class="campos">
                             <div class="cadastroInformacoesPessoais">
-                                <label> Senha: </label>
+                                <label> Destaque: </label>
                             </div>
                             <div class="cadastroEntradaDeDados">
-                                <input type="password" name="txtSenha" id="senha" placeholder="Senha" 
-                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}$" 
-                                title=" A senha devera ter o comprimento maior ou igual a 8 e menor ou igual a 16, pelo menos uma letra minúscula, uma letra maiuscula, 
-                                um dígito númerico e um caracter especial." required value="<?=isset($senha)?$senha:null?>">
-                                <i class="fa-solid fa-eye" id="vizualizar" pattern="^(?=.*\d)(?=.*[az])(?=.*[AZ]).{4,15}$" ></i>
+                                <input type="checkbox" name="txtDestaque">
                             </div>
-    
+                        </div>
+
+                        <div class="campos">
+                            <div class="cadastroInformacoesPessoais">
+                                <label> Desconto: </label>
+                            </div>
+                            <div class="cadastroEntradaDeDados">
+                                <input type="text" name="txtDesconto" id="desconto">
+                            </div>
+                        </div>
+
+                        <div class="campos">
+                            <div class="cadastroInformacoesPessoais">
+                                <label> Imagem: </label>
+                            </div>
+                            <div class="cadastroEntradaDeDados">
+                                <input  type="file" name="fleFoto" accept=".jpg, .png, .jpeg, .gif">
+                            </div>
                         </div>
                                         
                         
@@ -151,58 +145,44 @@
                 <table id="tblConsulta" >
                     <tr>
                         <td id="tblTitulo" colspan="6">
-                            <h1> Consulta de Usuários.</h1>
+                            <h1> Consulta de Produtos.</h1>
                         </td>
                     </tr>
                     
                     <tr id="tblLinhas">
                         <td class="tblColunas destaque"> Nome </td>
-
-                        <td class="tblColunas destaque"> Nome de usuario </td>
-
-                        <td class="tblColunas destaque"> email </td>
+                        <td class="tblColunas destaque"> Preço </td>
+                        <td class="tblColunas destaque"> Destaque </td>
+                        <td class="tblColunas destaque"> Desconto </td>
+                        <td class="tblColunas destaque"> Imagem </td>
                         
                         <td class="tblColunas destaque"> Opções </td>
                     </tr>
 
-                    <?php
-                        require_once('./controller/controller-usuarios.php');
-                        $listUsuarios = listarUsuario();
-                        if($listUsuarios) {
-                            
-                        
-                        foreach ($listUsuarios as $item)
-                        {
-                    ?>
-
-                    
-
-
                     <tr id="tblLinhas">
-                        <td class="tblColunas registros"><?=$item['nome']?></td>
-                        <td class="tblColunas registros"><?=$item['nomeusuario']?></td>
-                        <td class="tblColunas registros"><?=$item['email']?></td>
+                        <td class="tblColunas registros">aaaaaaaaa</td>
+                        <td class="tblColunas registros">aaaaaaaaa</td>
+                        <td class="tblColunas registros">aaaaaaaaa</td>
+                        <td class="tblColunas registros">aaaaaaaaa</td>
+                        <td class="tblColunas registros">aaaaaaaaa</td>
+                        
+
                         <td class="tblColunas registros">
                         
-                            
-                            <a href="router.php?component=usuarios&action=buscar&id=<?=$item['id']?>">
+                            <!-- <a href="router.php?component=categorias&action=buscar&id=<?=$item['id']?>"> -->
                                 <img src="img/edit.png" alt="Editar" title="Editar" class="editar">
-                            </a>
-                            
-                            <a onclick="return confirm('Deseja realmente excluir o usuario <?=$item['nome']?>?')" href="router.php?component=usuarios&action=deletar&id=<?=$item['id']?>">
+                            <!-- </a> -->
+
+                            <!-- <a onclick="return confirm('Deseja realmente excluir a categoria <?=$item['categoria']?>?')" href="router.php?component=categorias&action=deletar&id=<?=$item['id']?>"> -->
                                 <img src="img/trash.png" alt="Excluir" title="Excluir" class="excluir" >     
-                            </a>
+                            <!-- </a> -->
                                                         
                         </td>
 
                     </tr>
 
-                    <?php
-                        }
-                    }
-                    ?>
+                    
 
-    
 
                 </table>
             </div>

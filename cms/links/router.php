@@ -182,6 +182,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
                                 window.history.back();
                             </script>"); 
             
+            } elseif ($action == 'BUSCAR') {
+
+                //Recebe o id do usuario que devera ser excluido
+                $idUsuario = $_GET['id'];
+                
+                //Busca a categoria pelo id
+                $dados = buscarUsuario($idUsuario);
+
+                //Ativa a utilização de variaveis de sessao no server
+                session_start();
+
+                //Guarda em uma variavel de sessao os dados que o BD retornou para a busca do ID
+                $_SESSION['dadosUsuarios'] = $dados;
+                
+                // utilizando o require não havera um novo carregamento, apenas a importação da inde.php
+                require_once('usuarios.php');
+
+            } elseif ($action == 'EDITAR') {
+                
+                //Recebe o id da categoria que devera ser excluido
+                $idUsuario = $_GET['id'];
+                
+                //Chama a funçao de editar
+                $resposta = atualizarUsuario($_POST, $idUsuario);
+
+                //Valida o tipo de dados que a controller retornou
+                if (is_bool($resposta)) /*Se for booleaan*/ {   
+
+                    //Verificar se o retorno foi verdadeiro
+                    if ($resposta) 
+                        echo("<script>
+                                alert('Usuario modificado com sucesso!!');
+                                window.location.href = 'usuarios.php';
+                            </script>");
+                
+                }   //Se o retorno for um array significa houve erro no processo de inserção
+                    elseif (is_array($resposta))
+                        echo("<script>
+                                alert('".$resposta['message']."');
+                                window.history.back();
+                            </script>");
             }
             
         break;
