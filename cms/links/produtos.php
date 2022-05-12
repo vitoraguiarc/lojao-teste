@@ -75,7 +75,7 @@
                 <h1> Cadastro de Produtos </h1>        
             </div>
                 <div id="cadastroInformacoes">
-                    <form action="produtos.php" name="frmCadastro" method="post" >
+                    <form action="router.php?component=produtos&action=inserir" name="frmCadastro" method="post" >
                         <div class="campos">
                             <div class="cadastroInformacoesPessoais">
                                 <label> Nome: </label>
@@ -109,7 +109,7 @@
                                 <label> Destaque: </label>
                             </div>
                             <div class="cadastroEntradaDeDados">
-                                <input type="checkbox" name="txtDestaque">
+                                <input type="checkbox" name="cbkDestaque" >
                             </div>
                         </div>
 
@@ -169,11 +169,11 @@
 
                         <td class="tblColunas registros">
                         
-                            <!-- <a href="router.php?component=categorias&action=buscar&id=<?=$item['id']?>"> -->
+                           
                                 <img src="img/edit.png" alt="Editar" title="Editar" class="editar">
                             <!-- </a> -->
 
-                            <!-- <a onclick="return confirm('Deseja realmente excluir a categoria <?=$item['categoria']?>?')" href="router.php?component=categorias&action=deletar&id=<?=$item['id']?>"> -->
+                            
                                 <img src="img/trash.png" alt="Excluir" title="Excluir" class="excluir" >     
                             <!-- </a> -->
                                                         

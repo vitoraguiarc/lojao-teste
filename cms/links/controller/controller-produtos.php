@@ -1,4 +1,4 @@
-<?
+<?php
 
 /******************************************************************* 
      * Objetivo: Arquivo responsavel pela manipulação de dados de contato
@@ -8,14 +8,29 @@
      * Versão: 1.0    
 *********************************************************************/
 
-function inserirCategoria($dadosProdutos) {
+function inserirProduto($dadosProdutos) {
+
+    $destaque = (int) 0;
+
     if(!empty($dadosProdutos)) {
         //Validação de campos obrigatorios
-        if(!empty($dadosProdutos['txtNome']) || !empty($dadosProdutos['txtDescricao']) || !empty($dadosProdutos['txtPreco']) ) {
+        if(!empty($dadosProdutos['txtNome']) || !empty($dadosProdutos['txtDescricao']) || !empty($dadosProdutos['txtPreco']) || !empty($dadosProdutos['txtDesconto']) ) {
+
+            if(isset($_POST['cbkDesconto'])) {
+                $destaque = 1;
+            } else {
+                $destaque = 0;
+            }
+                
 
             //Criação do array de dados que será encaminhado a model
             $arrayDados = array (
-                "nome" => $dadosProdutos['txtNome']
+                "nome"      => $dadosProdutos['txtNome'],
+                "descricao" => $dadosProdutos['txtDescricao'],
+                "preco"     => $dadosProdutos['txtPreco'],
+                "desconto"  => $dadosProdutos['txtDesconto'],
+                "destaque"  => $destaque
+                
             );
 
             //Require da model
@@ -33,6 +48,8 @@ function inserirCategoria($dadosProdutos) {
                           'message' =>  'Existem campos obrigatórios que não foram preenchidos');  
     }
 }
+
+
 
 
 

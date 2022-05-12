@@ -45,7 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
                             window.history.back();
                         </script>"); 
                 
-            } 
+            }
+        break; 
 
         case 'CATEGORIAS';
 
@@ -135,8 +136,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
                                 window.history.back();
                             </script>");
             }
+        break;
         
         case 'USUARIOS';
+
 
             //Importar o arquivo da controller
             require_once('controller/controller-usuarios.php');
@@ -223,11 +226,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'GET')
                                 alert('".$resposta['message']."');
                                 window.history.back();
                             </script>");
-            }
-            
-        break;
 
+                   
+            }
+        break;
+        
+        case 'PRODUTOS';
+
+             //Importar o arquivo da controller
+             require_once('./controller/controller-produtos.php');
+
+             //Validando qual sera a ação
+             if($action == 'INSERIR') {
+ 
+                 //chama a função de inserir na controller
+                 $resposta = inserirProduto($_POST);
+ 
+                 //Valida o tipo de dados que a controller retornou
+                 if (is_bool($resposta)) /*Se for booleaan*/ {   
+ 
+                     //Verificar se o retorno foi verdadeiro
+                     if ($resposta) 
+                         echo("<script>
+                                 alert('Categoria inserida com sucesso!!');
+                                 window.location.href = 'usuarios.php';
+                             </script>");
+                 
+                 }   //Se o retorno for um array significa houve erro no processo de inserção
+                     elseif (is_array($resposta))
+                         echo("<script>
+                                 alert('".$resposta['message']."');
+                                 window.history.back();
+                             </script>");
+ 
+             }
+      
+        break;
+            
     }
+
+    
 }
 
 
