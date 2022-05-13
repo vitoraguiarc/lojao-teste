@@ -1,3 +1,43 @@
+<?php
+    //import arquivo de config
+    require_once('modulo/config.php');
+
+    //variavel que tem como finalidade diferenciar no action do form qual será a action encaminhada para a router (inserir ou editar)
+    $form = (string) "router.php?component=produtos&action=inserir";
+
+    //variavel para carregar o nome da foto do banco de dados
+    $foto = (string) null;
+
+    $destaque = (int) null;
+
+
+    //Valida se a utilização de variaveis de sessão esta ativa no servidor
+    if(session_status()) {
+
+        //Valida se a variavel de sessão dadosProduto não esta vazia
+        if(!empty($_SESSION['dadosProduto'])) {
+
+            $id        = $_SESSION['dadosProduto']['id'];
+            $nome      = $_SESSION['dadosProduto']['nome'];
+            $descricao = $_SESSION['dadosProduto']['descricao'];
+            $preco     = $_SESSION['dadosProduto']['preco'];
+            $destaque  = $_SESSION['dadosProduto']['destaque'];
+            $desconto  = $_SESSION['dadosProduto']['desconto'];
+            $foto      = $_SESSION['dadosProduto']['foto'];
+            
+
+            //Mudando o action para editar
+            $form = "router.php?component=produtos&action=editar&id=".$id."&foto=".$foto;
+
+            //Destroi uma variavel da memoria do servidor
+            unset($_SESSION['dadosProduto']);
+
+        }
+
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -75,13 +115,13 @@
                 <h1> Cadastro de Produtos </h1>        
             </div>
                 <div id="cadastroInformacoes">
-                    <form action="router.php?component=produtos&action=inserir" name="frmCadastro" method="post" >
+                    <form action="<?=$form?>" name="frmCadastro" method="post" enctype="multipart/form-data" >
                         <div class="campos">
                             <div class="cadastroInformacoesPessoais">
                                 <label> Nome: </label>
                             </div>
                             <div class="cadastroEntradaDeDados">
-                                <input type="text" name="txtNome" placeholder="Digite o nome de uma categoria" maxlength="90">
+                                <input type="text" name="txtNome" placeholder="Digite o nome de uma categoria" maxlength="90" value="<?=isset($nome)?$nome:null?>">
                             </div>
                         </div>
 
@@ -91,7 +131,7 @@
                                 <label> Descrição: </label>
                             </div>
                             <div class="cadastroEntradaDeDados">
-                                <input type="text" name="txtDescricao" placeholder="Digite o nome de uma categoria" maxlength="90">
+                                <input type="text" name="txtDescricao" placeholder="Digite o nome de uma categoria" value="<?=isset($descricao)?$descricao:null?>">
                             </div>
                         </div>
 
@@ -100,7 +140,7 @@
                                 <label> Preço: </label>
                             </div>
                             <div class="cadastroEntradaDeDados">
-                                <input type="is_float" name="txtPreco" placeholder="Digite o nome de uma categoria" maxlength="90">
+                                <input type="is_float" name="txtPreco" placeholder="Digite o nome de uma categoria" maxlength="90" value="<?=isset($preco)?$preco:null?>">
                             </div>
                         </div>
 
@@ -109,7 +149,7 @@
                                 <label> Destaque: </label>
                             </div>
                             <div class="cadastroEntradaDeDados">
-                                <input type="checkbox" name="cbkDestaque" >
+                                <input type="checkbox" name="cbkDestaque" <?= $destaque == '1' ? 'checked' : null ?>>
                             </div>
                         </div>
 
@@ -118,7 +158,7 @@
                                 <label> Desconto: </label>
                             </div>
                             <div class="cadastroEntradaDeDados">
-                                <input type="text" name="txtDesconto" id="desconto">
+                                <input type="text" name="txtDesconto" id="desconto" value="<?=isset($desconto)?$desconto:null?>">
                             </div>
                         </div>
 
@@ -129,6 +169,10 @@
                             <div class="cadastroEntradaDeDados">
                                 <input  type="file" name="fleFoto" accept=".jpg, .png, .jpeg, .gif">
                             </div>
+                        </div>
+
+                        <div class="campos">
+                            <img src="<?=DIRETORIO_FILE_UPLOAD.$foto?>" alt="">
                         </div>
                                         
                         
@@ -151,35 +195,48 @@
                     
                     <tr id="tblLinhas">
                         <td class="tblColunas destaque"> Nome </td>
+                        <td class="tblColunas destaque"> Descrição </td>
                         <td class="tblColunas destaque"> Preço </td>
                         <td class="tblColunas destaque"> Destaque </td>
                         <td class="tblColunas destaque"> Desconto </td>
                         <td class="tblColunas destaque"> Imagem </td>
-                        
                         <td class="tblColunas destaque"> Opções </td>
                     </tr>
+                    <?php
+                        require_once('./controller/controller-produtos.php');
+                        $listarProduto = listarProduto();
+                        if($listarProduto) {
+                        foreach ($listarProduto as $produto){
+                            $foto = $produto['foto'];
+                    ?>
 
                     <tr id="tblLinhas">
-                        <td class="tblColunas registros">aaaaaaaaa</td>
-                        <td class="tblColunas registros">aaaaaaaaa</td>
-                        <td class="tblColunas registros">aaaaaaaaa</td>
-                        <td class="tblColunas registros">aaaaaaaaa</td>
-                        <td class="tblColunas registros">aaaaaaaaa</td>
+                        <td class="tblColunas registros"><?=$produto['nome']?></td>
+                        <td class="tblColunas registros"><?=$produto['descricao']?></td>
+                        <td class="tblColunas registros"><?=$produto['preco']?></td>
+                        <td class="tblColunas registros"><?=$produto['destaque'] == '1' ? 'sim' : 'não'?></td>
+                        <td class="tblColunas registros"><?=$produto['desconto']?></td>
+                        <td class="tblColunas registros"><img src="<?=DIRETORIO_FILE_UPLOAD.$foto?>" class="foto"></td>
                         
 
                         <td class="tblColunas registros">
                         
-                           
+                            <a href="router.php?component=produtos&action=buscar&id=<?=$produto['id']?>">
                                 <img src="img/edit.png" alt="Editar" title="Editar" class="editar">
-                            <!-- </a> -->
+                            </a>
 
-                            
+                            <a onclick="return confirm('Deseja realmente excluir o produto <?=$produto['nome']?>?')" href="router.php?component=produtos&action=deletar&id=<?=$produto['id']?>&foto=<?=$foto?>">
                                 <img src="img/trash.png" alt="Excluir" title="Excluir" class="excluir" >     
-                            <!-- </a> -->
+                            </a>
                                                         
                         </td>
 
                     </tr>
+
+                    <?php
+                        }
+                    }
+                    ?>
 
                     
 
