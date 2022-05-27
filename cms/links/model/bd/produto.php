@@ -21,14 +21,15 @@ function insertProduto($dadosProduto) {
 
     //Script para a inserção de categorias
     $sql = "insert into tblprodutos
-                (nome, descricao, preco, destaque, desconto, foto)
+                (nome, descricao, preco, destaque, desconto, foto, idcategoria)
             values
                 ('".$dadosProduto['nome']."',
                  '".$dadosProduto['descricao']."',
                  '".$dadosProduto['preco']."',
                  '".$dadosProduto['destaque']."',
                  '".$dadosProduto['desconto']."',
-                 '".$dadosProduto['foto']."' ); ";
+                 '".$dadosProduto['foto']."',
+                 '".$dadosProduto['idcategoria']."' ); ";
 
 
     

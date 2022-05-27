@@ -47,7 +47,8 @@ function inserirProduto($dadosProdutos, $file) {
                 "preco"     => $dadosProdutos['txtPreco'],
                 "desconto"  => $dadosProdutos['txtDesconto'],
                 "destaque"  => $destaque,
-                "foto"      => $nomeFoto
+                "foto"      => $nomeFoto,
+                "idcategoria" => $sltCategoria
                 
             );
 

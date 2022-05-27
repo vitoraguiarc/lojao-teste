@@ -10,6 +10,8 @@
 
     $destaque = (int) null;
 
+    $idcategoria = (string) null;
+
 
     //Valida se a utilização de variaveis de sessão esta ativa no servidor
     if(session_status()) {
@@ -174,6 +176,32 @@
                         <div class="campos">
                             <img src="<?=DIRETORIO_FILE_UPLOAD.$foto?>" alt="">
                         </div>
+
+                        <div class="campos">
+                        <div class="cadastroInformacoesPessoais">
+                            <label> Estado: </label>
+                        </div>
+                        
+                        <div class="cadastroEntradaDeDados">
+                            <select name="sltCategoria" id="">
+                                <option value="">Selecione um item</option>
+                                <?php
+                                    //import da controller de estados
+                                     require_once('controller/controller-categorias.php');
+                                     //chama a função para carregar todos os estados no banco
+                                     $listCategorias = listarCategoria();
+                   
+                                         foreach ($listCategorias as $item) {
+
+                                             ?>
+                                                <option <?=$idcategoria==$item['id']?'selected':null ?> value="<?=$item['id']?>"><?=$item['categoria']?></option>
+                                             <?php
+                                         }
+                                
+                                ?>
+                            </select>
+                        </div>
+                    </div>
                                         
                         
                         <div class="enviar">
