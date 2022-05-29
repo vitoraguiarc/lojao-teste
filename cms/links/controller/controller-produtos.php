@@ -48,9 +48,10 @@ function inserirProduto($dadosProdutos, $file) {
                 "desconto"  => $dadosProdutos['txtDesconto'],
                 "destaque"  => $destaque,
                 "foto"      => $nomeFoto,
-                "idcategoria" => $sltCategoria
+                "idcategoria" => $dadosProdutos['sltCategoria']
                 
             );
+
 
             //Require da model
             require_once('model/bd/produto.php');
@@ -200,7 +201,8 @@ function atualizarProduto($dadosProduto, $arrayDados){
                     "preco"  => $dadosProduto['txtPreco'],
                     "desconto"    => $dadosProduto['txtDesconto'],
                     "destaque"      => $destaque,
-                    "foto"     => $novaFoto
+                    "foto"     => $novaFoto,
+                    "idcategoria" => $dadosProdutos['sltCategoria']
                 ); 
 
                 //Require do arquivo da model que faz a conexão direta com o BD

@@ -71,7 +71,8 @@ function selectAllProdutos() {
                 "preco"    => $rsDados['preco'],
                 "destaque"      => $rsDados['destaque'],
                 "desconto"        => $rsDados['desconto'],
-                "foto"       => $rsDados['foto']
+                "foto"       => $rsDados['foto'],
+                "idcategoria" => $rsDados['idcategoria']
  
             );
             $cont++;
@@ -136,7 +137,8 @@ function selectByIdProduto($id) {
                 "preco"      => $rsDados['preco'],
                 "destaque"   => $rsDados['destaque'],
                 "desconto"   => $rsDados['desconto'],
-                "foto"       => $rsDados['foto']
+                "foto"       => $rsDados['foto'],
+                "idcategoria" => $rsDados['idcategoria']
 
             );
             
@@ -166,7 +168,8 @@ function updateProduto($dadosProduto) {
                  preco  = '".$dadosProduto['preco']."',
                  desconto    = '".$dadosProduto['desconto']."',
                  destaque      = '".$dadosProduto['destaque']."',
-                 foto     = '".$dadosProduto['foto']."'
+                 foto     = '".$dadosProduto['foto']."',
+                 idcategoria     = '".$dadosProduto['idcategoria']."'
                 
             
             where idproduto =".$dadosProduto['id'];

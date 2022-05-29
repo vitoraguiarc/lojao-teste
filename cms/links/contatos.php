@@ -23,33 +23,33 @@
             </div>
            
             <div class="header-links">
-                <div class="secao-icon">
+            <a href="produtos.php" class="secao-icon">
                     <i class="fa-solid fa-shirt"></i>
                     <p class="icon-title">
                         Adm. de Produtos
                     </p>
-                </div>
+                </a>
                 
-                <div class="secao-icon">
+                <a href="categorias.php" class="secao-icon">
                     <i class="fa-solid fa-marker"></i>
                     <p class="icon-title">
                         Adm. de Categorias
                     </p>
-                </div>
+                </a>
 
-                <div class="secao-icon">
+                <a href="contatos.php" class="secao-icon">
                     <i class="fa-solid fa-users-line"></i>
                     <p class="icon-title">
                         Contatos
                     </p>
-                </div>
+                </a>
 
-                <div class="secao-icon">
+                <a href="usuarios.php" class="secao-icon">
                     <i class="fa-solid fa-address-card"></i>
                     <p class="icon-title">
                         Usuários
                     </p>
-                </div>
+                </a>
 
                 <div class="secao-logout">
                     <p class="secao-logout-welcome">
