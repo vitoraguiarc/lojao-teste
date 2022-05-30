@@ -202,7 +202,7 @@ function atualizarProduto($dadosProduto, $arrayDados){
                     "desconto"    => $dadosProduto['txtDesconto'],
                     "destaque"      => $destaque,
                     "foto"     => $novaFoto,
-                    "idcategoria" => $dadosProdutos['sltCategoria']
+                    "idcategoria" => $dadosProduto['sltCategoria']
                 ); 
 
                 //Require do arquivo da model que faz a conexão direta com o BD
