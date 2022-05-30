@@ -103,7 +103,7 @@
                                 <label> Categoria: </label>
                             </div>
                             <div class="cadastroEntradaDeDados">
-                                <input type="text" name="txtCategoria" value="<?=isset($categoria)?$categoria:null?>" placeholder="Digite o nome de uma categoria" maxlength="90">
+                                <input type="text" class="txtCategoria"name="txtCategoria" value="<?=isset($categoria)?$categoria:null?>" placeholder="Digite o nome de uma categoria" maxlength="90">
                             </div>
                         </div>
                                         

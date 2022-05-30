@@ -46,7 +46,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css-links/categorias.css">
+    <link rel="stylesheet" href="css-links/produtos.css">
     <link rel="stylesheet" href="css-links/header-main-footer.css">
     <script src="https://kit.fontawesome.com/02a1c8bf88.js" crossorigin="anonymous"></script>
     <title>Contatos</title>
@@ -132,7 +132,7 @@
                                 <label> Descrição: </label>
                             </div>
                             <div class="cadastroEntradaDeDados">
-                                <input type="text" name="txtDescricao" placeholder="Digite o nome de uma categoria" value="<?=isset($descricao)?$descricao:null?>">
+                                <input type="text" name="txtDescricao"  value="<?=isset($descricao)?$descricao:null?>">
                             </div>
                         </div>
 
@@ -141,7 +141,7 @@
                                 <label> Preço: </label>
                             </div>
                             <div class="cadastroEntradaDeDados">
-                                <input type="is_float" name="txtPreco" placeholder="Digite o nome de uma categoria" maxlength="90" value="<?=isset($preco)?$preco:null?>">
+                                <input type="text" name="txtPreco" maxlength="90" value="<?=isset($preco)?$preco:null?>">
                             </div>
                         </div>
 
@@ -173,34 +173,34 @@
                         </div>
 
                         <div class="campos">
+                            <div class="cadastroInformacoesPessoais">
+                                <label> Categoria: </label>
+                            </div>
+                        
+                            <div class="cadastroEntradaDeDados">
+                                <select name="sltCategoria" id="">
+                                    <option value="">Selecione um item</option>
+                                    <?php
+                                        //import da controller de categoria
+                                        require_once('controller/controller-categorias.php');
+                                        //chama a função para carregar todos as categorias no banco
+                                        $listCategorias = listarCategoria();
+                    
+                                            foreach ($listCategorias as $item) {
+
+                                                ?>
+                                                    <option <?=$idcategoria==$item['id']?'selected':null ?> value="<?=$item['id']?>"><?=$item['categoria']?></option>
+                                                <?php
+                                            }
+                                    
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="campos editar-foto">
                             <img src="<?=DIRETORIO_FILE_UPLOAD.$foto?>" alt="">
                         </div>
-
-                        <div class="campos">
-                        <div class="cadastroInformacoesPessoais">
-                            <label> Estado: </label>
-                        </div>
-                        
-                        <div class="cadastroEntradaDeDados">
-                            <select name="sltCategoria" id="">
-                                <option value="">Selecione um item</option>
-                                <?php
-                                    //import da controller de estados
-                                     require_once('controller/controller-categorias.php');
-                                     //chama a função para carregar todos os estados no banco
-                                     $listCategorias = listarCategoria();
-                   
-                                         foreach ($listCategorias as $item) {
-
-                                             ?>
-                                                <option <?=$idcategoria==$item['id']?'selected':null ?> value="<?=$item['id']?>"><?=$item['categoria']?></option>
-                                             <?php
-                                         }
-                                
-                                ?>
-                            </select>
-                        </div>
-                    </div>
                                         
                         
                         <div class="enviar">
@@ -222,7 +222,6 @@
                     
                     <tr id="tblLinhas">
                         <td class="tblColunas destaque"> Nome </td>
-                        <td class="tblColunas destaque"> Descrição </td>
                         <td class="tblColunas destaque"> Preço </td>
                         <td class="tblColunas destaque"> Destaque </td>
                         <td class="tblColunas destaque"> Desconto </td>
@@ -239,10 +238,9 @@
 
                     <tr id="tblLinhas">
                         <td class="tblColunas registros"><?=$produto['nome']?></td>
-                        <td class="tblColunas registros"><?=$produto['descricao']?></td>
                         <td class="tblColunas registros"><?=$produto['preco']?></td>
-                        <td class="tblColunas registros"><?=$produto['destaque'] == '1' ? 'sim' : 'não'?></td>
-                        <td class="tblColunas registros"><?=$produto['desconto']?></td>
+                        <td class="tblColunas registros"><?=$produto['destaque'] == '1' ? 'SIM' : 'NÂO'?></td>
+                        <td class="tblColunas registros"><?=$produto['desconto']."%"?></td>
                         <td class="tblColunas registros"><img src="<?=DIRETORIO_FILE_UPLOAD.$foto?>" class="foto"></td>
                         
 

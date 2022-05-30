@@ -157,7 +157,7 @@
 
                         <td class="tblColunas destaque"> Nome de usuario </td>
 
-                        <td class="tblColunas destaque"> email </td>
+                        <td class="tblColunas destaque"> Email </td>
                         
                         <td class="tblColunas destaque"> Opções </td>
                     </tr>
